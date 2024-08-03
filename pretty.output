@@ -1,0 +1,41 @@
+Feature: User Registration # features/registration.feature:1
+  The form must allow you to register a user with name, email and password.
+  Background:   # features/registration.feature:5
+
+  Scenario Outline: The registration for an user in a web -- @1.1                                             # features/registration.feature:17
+    Given the user is on the web page                                                                         # features/steps/registration_steps.py:11
+    When the user select the "Sign Up" option                                                                 # features/steps/registration_steps.py:16
+    And the user can see the "Sign Up" page                                                                   # features/steps/registration_steps.py:20
+    When the user put the registration details like: Jhon Doe, inlaze-user@yopmail.com, T123@mails,T123@mails # features/steps/registration_steps.py:24
+    And the user select the "Sign Up" button                                                                  # features/steps/registration_steps.py:28
+      Traceback (most recent call last):
+        File "C:\Users\sebas\AppData\Local\Programs\Python\Python312\Lib\site-packages\behave\model.py", line 1329, in run
+          match.run(runner.context)
+        File "C:\Users\sebas\AppData\Local\Programs\Python\Python312\Lib\site-packages\behave\matchers.py", line 98, in run
+          self.func(context, *args, **kwargs)
+        File "features\steps\registration_steps.py", line 30, in step_impl
+          context.driver.signUpButtonIsEnabled().click()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      AttributeError: 'bool' object has no attribute 'click'
+
+    Then the user is register on the web page                                                                 # None
+
+  Scenario Outline: The user already exist in the web page -- @1.1                                                       # features/registration.feature:27
+    Given the user is on the web page                                                                                    # features/steps/registration_steps.py:11
+    When the user select the "Sign Up" option                                                                            # features/steps/registration_steps.py:16
+    And the user can see the "Sign Up" page                                                                              # features/steps/registration_steps.py:20
+    When the user put the registration details like: <fullName>, jhon@mail.com, T123@mails,<repeatYourPassword>          # features/steps/registration_steps.py:24
+    And the user select the "Sign Up" button                                                                             # features/steps/registration_steps.py:28
+      Traceback (most recent call last):
+        File "C:\Users\sebas\AppData\Local\Programs\Python\Python312\Lib\site-packages\behave\model.py", line 1329, in run
+          match.run(runner.context)
+        File "C:\Users\sebas\AppData\Local\Programs\Python\Python312\Lib\site-packages\behave\matchers.py", line 98, in run
+          self.func(context, *args, **kwargs)
+        File "features\steps\registration_steps.py", line 30, in step_impl
+          context.driver.signUpButtonIsEnabled().click()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      AttributeError: 'bool' object has no attribute 'click'
+
+    Then the user should see a message indicating the user already exists                                                # None
+    And the user cannot register with the same details again: <fullName>, jhon@mail.com, T123@mails,<repeatYourPassword> # None
+

@@ -1,3 +1,6 @@
-behave
-selenium
+allure-behave
+allure-pytest
 pytest
+behave
+python-dotenv
+selenium

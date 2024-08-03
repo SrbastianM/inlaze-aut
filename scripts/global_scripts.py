@@ -121,7 +121,9 @@ class GlobalScripts:
     
     def selectLoginButton(self):
         try:
-            self.driver.find_element(By.XPATH("//a[@href='/auth/sign-in']").click())
+            wait = WebDriverWait(self.driver, 10)
+            login_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//a[@href='/auth/sign-in']")))
+            login_button.click()
             allure.attach(self.driver.get_screenshot_as_png(), name="select_login_button", attachment_type=AttachmentType.PNG)
         except NoSuchElementException:
             print("Login button not found")
@@ -132,6 +134,7 @@ class GlobalScripts:
             signUpEnabled = WebDriverWait(self.driver, 10).until(
                 EC.visibility_of_element_located((By.XPATH,  "//button[@type='submit'][contains(.,'Sign up')]"))
                 )
+            signUpEnabled.click()
             allure.attach(self.driver.get_screenshot_as_png(), name="sign_up_button_is_enabled", attachment_type=AttachmentType.PNG)
             return signUpEnabled.is_enabled()
         
@@ -141,5 +144,58 @@ class GlobalScripts:
             self.driver.quit()
             return False
     
+    def enterRegistrationDetails(self, name, email, password, confirm_password):
+        self.driver.find_element(By.XPATH, "//input[contains(@formcontrolname,'fullName')]").send_keys(name)
+        self.driver.find_element(By.XPATH, "//input[@type='email']").send_keys(email)
+        self.driver.find_element(By.XPATH, "//input[@autocomplete='password']").send_keys(password)
+        self.driver.find_element(By.XPATH, "//input[contains(@autocomplete,'confirm-password')]").send_keys(confirm_password)
+    
+    def signUpPage(self):
+        try:
+            is_on_signup_page = WebDriverWait(self.driver, 10).until(
+                EC.visibility_of_element_located((By.XPATH,  "//h1[@class='text-4xl font-extrabold mb-4'][contains(.,'Sign up')]"))
+            )
+            allure.attach(self.driver.get_screenshot_as_png(), name="search_page", attachment_type=AttachmentType.PNG)
+            return is_on_signup_page
+        except NoSuchElementException:
+            print("Sign up page is not found")
+            allure.attach(self.driver.get_screenshot_as_png(), name="search_page", attachment_type=AttachmentType.PNG)
+            self.driver.quit()
+        
+    def isUserRegistered(self):
+        try:
+            WebDriverWait(self.driver, 10).until(
+                EC.visibility_of_element_located((By.XPATH,  "//div[@class='ml-3 text-sm font-normal'][contains(.,'Successful registration!')]"))
+            )
+            allure.attach(self.driver.get_screenshot_as_png(), name="success_registration", attachment_type=AttachmentType.PNG)
+            return True
+        except NoSuchElementException:
+            print("Alert is not found or is not enabled")
+            allure.attach(self.driver.get_screenshot_as_png(), name="unsuccess_registration", attachment_type=AttachmentType.PNG)
+            return False
+        finally:
+            self.driver.quit()
+    def userAlreadyRegistered(self):
+        try:
+            WebDriverWait(self.driver, 10).until(
+                EC.visibility_of_element_located((By.XPATH,  "//div[@class='ml-3 text-sm font-normal'][contains(.,'Successful registration!')]"))
+            )
+            allure.attach(self.driver.get_screenshot_as_png(), name="user_duplicated_in_database", attachment_type=AttachmentType.PNG)
+            print("User is already registered")
+            return False
+        except NoSuchElementException:
+            try: 
+                WebDriverWait(self.driver, 10).until(
+                    EC.visibility_of_element_located((By.XPATH, "//div[contains(text(),'User already exists')]"))
+                )
+                print("User Already registered")
+                allure.attach(self.driver.get_screenshot_as_png(), name="user_already_registered", attachment_type=AttachmentType.PNG)
+                return False
+            except NoSuchElementException:
+                print("No registration message status found")
+                allure.attach(self.driver.get_screenshot_as_png(), name="user_already_registered", attachment_type=AttachmentType.PNG)
+                return False
+        finally:
+            self.driver.quit()
     def tearDown(self):
         self.driver.quit()
