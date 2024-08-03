@@ -1,0 +1,9 @@
+# Python cache
+__pycache__/
+*.py[cod]
+
+# VSCode directory
+.vscode/
+
+# Pytest cache
+.pytest_cache/
