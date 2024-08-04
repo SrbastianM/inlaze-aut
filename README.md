@@ -9,6 +9,8 @@ INSTALL DEPENDENCIES
 - The unit test's are checking if the robot is normally or have some problem. To use it you need to use the following command ```pytest tests```
 - To show the reports and analize the results of the tests run the following command ```allure serve ./allurereports``` this run the allure dependency and show in localhost the result of all the test's
 
+- Clone the project following the next command ```git clone https://github.com/SrbastianM/inlaze-aut.git``` remember! if you had install git on you device, if not install it :D
+
 # Preview of the project
 ![image](https://github.com/user-attachments/assets/0c780cd1-534b-4a73-b508-c9ed6459b80e)
 
