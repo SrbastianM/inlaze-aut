@@ -22,7 +22,7 @@ INSTALL DEPENDENCIES
 
 # After Install allure
 - After install and run the cases or unit test. Run the following command ```allure serve ./allurereports``` to show a server like this:
-- ![image](https://github.com/user-attachments/assets/992133a9-8841-488c-9cf8-dafc3fcc9f17)
+![image](https://github.com/user-attachments/assets/992133a9-8841-488c-9cf8-dafc3fcc9f17)
 - In this server you can see all the results positive or negative for the tests runned
 
 # Running the unit test
