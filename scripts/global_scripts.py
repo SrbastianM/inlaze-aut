@@ -25,13 +25,15 @@ class GlobalScripts:
     def selectSignUpButton(self):
         self.driver.find_element(By.XPATH, "//a[@class='font-bold text-primary'][contains(.,'Sign up')]").click()
         allure.attach(self.driver.get_screenshot_as_png(), name="select_signup_button", attachment_type=AttachmentType.PNG)
+    
+    def selectSignInButton(self):
+        self.driver.find_element(By.XPATH, "//button[@type='submit'][contains(.,'Sign in')]").click()
+        allure.attach(self.driver.get_screenshot_as_png(), name="select_signin_button", attachment_type=AttachmentType.PNG)
 
     def putNameField(self, name):
         WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located((By.XPATH,  "//input[contains(@formcontrolname,'fullName')]"))).send_keys(name)
-        allure.attach(self.driver.get_screenshot_as_png(), name="put_name_field", attachment_type=AttachmentType.PNG)
-            
-            
+        allure.attach(self.driver.get_screenshot_as_png(), name="put_name_field", attachment_type=AttachmentType.PNG) 
     def nameFieldValidation(self, name):
         try:
             name_element  =  WebDriverWait(self.driver, 10).until(
@@ -71,6 +73,26 @@ class GlobalScripts:
             self.driver.quit()
             return None  
     
+    def emailLoginFieldValidation(self, email):
+        try:
+            email_element  =  WebDriverWait(self.driver, 10).until(
+                EC.visibility_of_element_located((By.XPATH,  "//input[@type='email']")))
+            email_element.send_keys(email)
+            allure.attach(self.driver.get_screenshot_as_png(), name="put_email_field", attachment_type=AttachmentType.PNG)
+            email_value =email_element.get_attribute("value")
+            email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+            
+            if not re.match(email_regex, email_value):
+               print("The email format is not valid")
+               self.driver.quit()
+               return None
+            return email_value
+        
+        except (NoSuchElementException, TimeoutException) as e:
+            print(f"Error: {e}")
+            print("The email field is not visible or not found")
+            self.driver.quit()
+            return None  
     def passwordFieldValidation(self, password):
         try:
             password_element  =  WebDriverWait(self.driver, 10).until(
@@ -121,8 +143,7 @@ class GlobalScripts:
     
     def selectLoginButton(self):
         try:
-            wait = WebDriverWait(self.driver, 10)
-            login_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//a[@href='/auth/sign-in']")))
+            login_button = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//button[@type='submit'][contains(.,'Sign in')]")))
             login_button.click()
             allure.attach(self.driver.get_screenshot_as_png(), name="select_login_button", attachment_type=AttachmentType.PNG)
         except NoSuchElementException:
@@ -197,5 +218,55 @@ class GlobalScripts:
                 return False
         finally:
             self.driver.quit()
+
+    def userNotFound(self):
+        try:
+            WebDriverWait(self.driver, 10).until(
+                EC.visibility_of_element_located((By.XPATH,  "//div[@class='ml-3 text-sm font-normal'][contains(.,'User not found')]"))
+            )
+            allure.attach(self.driver.get_screenshot_as_png(), name="user_not_found", attachment_type=AttachmentType.PNG)
+            return True
+        except NoSuchElementException:
+            print("User not found message not found")
+            allure.attach(self.driver.get_screenshot_as_png(), name="user_not_found", attachment_type=AttachmentType.PNG)
+            return False
+        finally:
+            self.driver.quit()
+   
+    def isUserLoggedIn(self):
+        try:
+            WebDriverWait(self.driver, 10).until(
+                EC.visibility_of_element_located((By.XPATH,  "//h2[@class='text-center font-extrabold text-5xl mb-4 text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-500'][contains(.,'Welcome to Lorem')]"))
+            )
+            allure.attach(self.driver.get_screenshot_as_png(), name="success_login", attachment_type=AttachmentType.PNG)
+            return True
+        
+        except NoSuchElementException:
+            print("User is not logged in")
+            allure.attach(self.driver.get_screenshot_as_png(), name="unsuccess_login", attachment_type=AttachmentType.PNG)
+            return False
+        finally:
+            self.driver.quit()
+    
+    def logout(self):
+        try:
+            logout_button = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//img[@alt='Rengoku']")))
+            logout_button.click()
+            time.sleep(2)
+            allure.attach(self.driver.get_screenshot_as_png(), name="logout_image", attachment_type=AttachmentType.PNG)
+            logout_link = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//a[contains(.,'Logout')]")))
+            logout_link.click()
+            allure.attach(self.driver.get_screenshot_as_png(), name="logout_link", attachment_type=AttachmentType.PNG)
+            self.driver.quit()
+        except NoSuchElementException:
+            print("Logout button not found")
+            self.driver.quit()
+    
+    def enterLoginDetails(self, email, password):
+        email_field = self.driver.find_element(By.XPATH, "//input[contains(@type,'email')]")
+        password_field = self.driver.find_element(By.XPATH, "//input[contains(@class,'input input-bordered join-item w-full')]")
+        email_field.send_keys(email)
+        password_field.send_keys(password)
+        
     def tearDown(self):
         self.driver.quit()
