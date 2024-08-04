@@ -3,7 +3,7 @@
 Small project to improve my automation skills using selenium and behave
 ---
 ## Points of interest:
-$INSTALL DEPENDENCIES
+$$ INSTALL DEPENDENCIES
 - Remember install ```requirements.txt``` using the following command: ```pip install -r requirements.txt``` if you don't have it 
 - To start the robot, you need to use the following command: ```behave``` in your terminal. This command runs all the scenarios in the folder features
 - The unit test's are checking if the robot is normally or have some problem. To use it you need to use the following command ```pytest tests```
