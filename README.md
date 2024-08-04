@@ -21,7 +21,7 @@ INSTALL DEPENDENCIES
 - In the folder ```test``` you can found the unit test where check's if the robot dont have any problem
 
 # After Install allure
-- To install and runn allure follow the documentation [Allure Install Windows ](https://allurereport.org/docs/install-for-windows/)
+- To install and run allure follow the documentation [Allure Install Windows ](https://allurereport.org/docs/install-for-windows/)
 - After install and run the cases or unit test. Run the following command ```allure serve ./allurereports``` to show a server like this:
 ![image](https://github.com/user-attachments/assets/992133a9-8841-488c-9cf8-dafc3fcc9f17)
 - In this server you can see all the results positive or negative for the tests runned
