@@ -1,6 +1,6 @@
-# Automation Project
+# Inlaze Technical test
 ---
-Small project to improve my automation skills using selenium and behave
+Technical test for inlaze
 ---
 ## Points of interest:
 INSTALL DEPENDENCIES
