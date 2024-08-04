@@ -24,6 +24,11 @@ INSTALL DEPENDENCIES
 - After install and run the cases or unit test. Run the following command ```allure serve ./allurereports``` to show a server like this:
 - ![image](https://github.com/user-attachments/assets/992133a9-8841-488c-9cf8-dafc3fcc9f17)
 - In this server you can see all the results positive or negative for the tests runned
+
+# Running the unit test
+- When you run the unit test and something happen, you see in the terminal the description about like this:
+![image](https://github.com/user-attachments/assets/32009a40-6db0-4790-8c3d-361983c99e4b)
+
 IMPORTANT
 - The page test have one bug. I can register the same user whatever I want, that's a issue for now I dont use some bug tracker but is well know it
 
