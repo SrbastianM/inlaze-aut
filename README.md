@@ -26,6 +26,7 @@ INSTALL DEPENDENCIES
 - In this server you can see all the results positive or negative for the tests runned
 
 # Running the unit test
+- By the way run ```pytest tests``` command to run all the unit tests made in pytests
 - When you run the unit test and something happen, you see in the terminal the description about like this:
 ![image](https://github.com/user-attachments/assets/32009a40-6db0-4790-8c3d-361983c99e4b)
 
