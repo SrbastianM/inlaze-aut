@@ -8,8 +8,6 @@ INSTALL DEPENDENCIES
 - To start the robot, you need to use the following command: ```behave``` in your terminal. This command runs all the scenarios in the folder features
 - The unit test's are checking if the robot is normally or have some problem. To use it you need to use the following command ```pytest tests```
 - To show the reports and analize the results of the tests run the following command ```allure serve ./allurereports``` this run the allure dependency and show in localhost the result of all the test's
----
-Thanks for watching my project! Follow me if you want
 
 # Preview of the project
 ![image](https://github.com/user-attachments/assets/0c780cd1-534b-4a73-b508-c9ed6459b80e)
@@ -22,3 +20,6 @@ Thanks for watching my project! Follow me if you want
 
 IMPORTANT
 - The page test have one bug. I can register the same user whatever I want, that's a issue for now I dont use some bug tracker but is well know it
+
+---
+Thanks for watching my project! Follow me if you want
